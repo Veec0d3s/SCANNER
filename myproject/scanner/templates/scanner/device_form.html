@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add / Edit Device</title>
+    <style>
+        /* Optional: hide fields by default with CSS, JS will toggle */
+        .hidden-field {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Add / Edit Device</h1>
+
+    <form method="post" novalidate>
+        {% csrf_token %}
+        
+        <p>
+            {{ form.category.label_tag }}<br>
+            {{ form.category }}
+            {{ form.category.errors }}
+        </p>
+
+        <p>
+            {{ form.assigned.label_tag }}<br>
+            {{ form.assigned }}
+            {{ form.assigned.errors }}
+        </p>
+
+        <p class="field-assigned_to hidden-field">
+            {{ form.assigned_to.label_tag }}<br>
+            {{ form.assigned_to }}
+            {{ form.assigned_to.errors }}
+        </p>
+
+        <p class="field-room_number hidden-field">
+            {{ form.room_number.label_tag }}<br>
+            {{ form.room_number }}
+            {{ form.room_number.errors }}
+        </p>
+
+        <p class="field-block hidden-field">
+            {{ form.block.label_tag }}<br>
+            {{ form.block }}
+            {{ form.block.errors }}
+        </p>
+
+        <p>
+            {{ form.status.label_tag }}<br>
+            {{ form.status }}
+            {{ form.status.errors }}
+        </p>
+
+        <p>
+            {{ form.serial_number.label_tag }}<br>
+            {{ form.serial_number }}
+            {{ form.serial_number.errors }}
+        </p>
+
+        <p>
+            {{ form.tag_number.label_tag }}<br>
+            {{ form.tag_number }}
+            {{ form.tag_number.errors }}
+        </p>
+
+        <p>
+            {{ form.date_acquired.label_tag }}<br>
+            {{ form.date_acquired }}
+            {{ form.date_acquired.errors }}
+        </p>
+
+        <p>
+            {{ form.engraved.label_tag }}<br>
+            {{ form.engraved }}
+            {{ form.engraved.errors }}
+        </p>
+
+        <p class="field-engravement_number hidden-field">
+            {{ form.engravement_number.label_tag }}<br>
+            {{ form.engravement_number }}
+            {{ form.engravement_number.errors }}
+        </p>
+
+        <p>
+            {{ form.brand.label_tag }}<br>
+            {{ form.brand }}
+            {{ form.brand.errors }}
+        </p>
+
+        <button type="submit">Save Device</button>
+    </form>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const assignedSelect = document.getElementById("id_assigned");
+            const assignedToField = document.querySelector(".field-assigned_to");
+            const roomNumberField = document.querySelector(".field-room_number");
+            const blockField = document.querySelector(".field-block");
+
+            const engravedSelect = document.getElementById("id_engraved");
+            const engravementNumberField = document.querySelector(".field-engravement_number");
+
+            function toggleAssignedFields() {
+                if (assignedSelect.value === "yes") {
+                    assignedToField.style.display = "block";
+                    roomNumberField.style.display = "block";
+                    blockField.style.display = "block";
+                } else {
+                    assignedToField.style.display = "none";
+                    roomNumberField.style.display = "none";
+                    blockField.style.display = "none";
+                }
+            }
+
+            function toggleEngravedField() {
+                if (engravedSelect.value === "yes") {
+                    engravementNumberField.style.display = "block";
+                } else {
+                    engravementNumberField.style.display = "none";
+                }
+            }
+
+            assignedSelect.addEventListener("change", toggleAssignedFields);
+            engravedSelect.addEventListener("change", toggleEngravedField);
+
+            // Run on page load
+            toggleAssignedFields();
+            toggleEngravedField();
+        });
+    </script>
+</body>
+</html>

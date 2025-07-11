@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Device List</title>
+    <style>
+        table { border-collapse: collapse; width: 100%; font-size: 14px; }
+        th, td { border: 1px solid #ccc; padding: 6px; text-align: left; }
+        .button { padding: 6px 12px; margin: 5px; background: #4CAF50; color: white; text-decoration: none; border-radius: 4px; }
+    </style>
+</head>
+<body>
+<h1>Devices</h1>
+<a href="{% url 'device-create' %}" class="button">Add New Device</a>
+<a href="{% url 'export-devices-csv' %}" class="button">Export to CSV</a>
+<button onclick="window.print()" class="button">Print</button>
+
+<table>
+    <tr>
+        <th>Device ID</th>
+        <th>Category</th>
+        <th>Assigned?</th>
+        <th>Assigned To</th>
+        <th>Room Number</th>
+        <th>Block</th>
+        <th>Status</th>
+        <th>Serial Number</th>
+        <th>Tag Number</th>
+        <th>Date Acquired</th>
+        <th>Engraved?</th>
+        <th>Engravement Number</th>
+        <th>Brand</th>
+        <th>Actions</th>
+    </tr>
+    {% for device in devices %}
+    <tr>
+        <td>{{ device.device_id }}</td>
+        <td>{{ device.category }}</td>
+        <td>{{ device.assigned }}</td>
+        <td>{{ device.assigned_to }}</td>
+        <td>{{ device.room_number }}</td>
+        <td>{{ device.block }}</td>
+        <td>{{ device.status }}</td>
+        <td>{{ device.serial_number }}</td>
+        <td>{{ device.tag_number }}</td>
+        <td>{{ device.date_acquired }}</td>
+        <td>{{ device.engraved }}</td>
+        <td>{{ device.engravement_number }}</td>
+        <td>{{ device.brand }}</td>
+        <td>
+            <a href="{% url 'device-edit' device.pk %}">Edit</a> |
+            <a href="{% url 'device-delete' device.pk %}">Delete</a>
+        </td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="14">No devices found.</td></tr>
+    {% endfor %}
+</table>
+</body>
+</html>
